@@ -1,0 +1,15 @@
+spring:
+  cloud:
+    openfeign:
+      client:
+        config:
+          default:
+            connectTimeout: 5000
+            readTimeout: 5000
+            defaultRequestHeaders:
+              api_key: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJpbmcucGFibG82NEBnbWFpbC5jb20iLCJqdGkiOiI0ZTBhZjc1Yi1kMzRmLTQ1NzUtOTg2My01ZDY4NzhhYjRkOTYiLCJpc3MiOiJBRU1FVCIsImlhdCI6MTcyOTc3OTkzOCwidXNlcklkIjoiNGUwYWY3NWItZDM0Zi00NTc1LTk4NjMtNWQ2ODc4YWI0ZDk2Iiwicm9sZSI6IiJ9.adqcVbg9_vtwKnuD4bEa1hTjWpuZ5Xd6ZcvILAzxtGU
+          get-master-cities:
+            url: https://opendata.aemet.es/opendata/api/maestro/municipios
+          retrieve-all-cities:
+            url: https://opendata.aemet.es/opendata
+
