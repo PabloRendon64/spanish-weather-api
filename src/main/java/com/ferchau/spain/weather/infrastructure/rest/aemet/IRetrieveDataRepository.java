@@ -5,8 +5,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import java.net.URI;
 
-@FeignClient(value = "retrieve-all-cities")
-public interface IRetrieveAllCitiesAEMETRepository {
+@FeignClient(value = "retrieve-data")
+public interface IRetrieveDataRepository {
 
     @GetMapping
     String execute(URI baseUrl);

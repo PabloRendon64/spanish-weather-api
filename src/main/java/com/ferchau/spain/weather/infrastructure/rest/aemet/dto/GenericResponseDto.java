@@ -6,7 +6,7 @@ import lombok.experimental.Accessors;
 
 @Data
 @Accessors(chain = true)
-public class CityMasterDataDto {
+public class GenericResponseDto {
 
     @JsonProperty("datos")
     private String data;

@@ -8,6 +8,7 @@ import com.ferchau.spain.weather.domain.model.City;
 import com.ferchau.spain.weather.infrastructure.rest.aemet.dto.CityDto;
 import com.ferchau.spain.weather.infrastructure.rest.aemet.mapper.ICityMapper;
 import lombok.AllArgsConstructor;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.net.URI;
@@ -17,16 +18,17 @@ import java.util.List;
 @AllArgsConstructor
 public class RetrieveAllCitiesRepository implements IRetrieveAllCitiesRepository {
 
-    private IGetMasterCitiesAEMETRepository getMasterCitiesAEMETRepository;
-    private IRetrieveAllCitiesAEMETRepository retrieveAllCitiesAEMETRepository;
+    private IGetCitiesRepository getCitiesRepository;
+    private IRetrieveDataRepository retrieveAllCitiesRepository;
     private ICityMapper iCityMapper;
 
     @Override
+    @Cacheable(cacheNames = "retrieve-all-cities-cache")
     public List<City> execute() {
-        var data = getMasterCitiesAEMETRepository.execute();
+        var data = getCitiesRepository.execute();
         URI determinedBasePathUri = URI.create(data.getData());
 
-        var response = retrieveAllCitiesAEMETRepository.execute(determinedBasePathUri);
+        var response = retrieveAllCitiesRepository.execute(determinedBasePathUri);
         ObjectMapper mapper = new ObjectMapper();
         List<CityDto> cityDtoList;
         try {
