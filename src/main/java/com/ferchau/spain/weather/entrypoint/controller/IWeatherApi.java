@@ -1,6 +1,6 @@
 package com.ferchau.spain.weather.entrypoint.controller;
 
-import com.ferchau.spain.weather.domain.model.WeatherPrediction;
+import com.ferchau.spain.weather.domain.model.WeatherPredictionResult;
 import com.ferchau.spain.weather.entrypoint.controller.contracts.CitiesResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -18,11 +18,9 @@ public interface IWeatherApi {
     @ApiResponses({
             @ApiResponse(responseCode = "200", content = { @Content(mediaType = "application/json",
                     schema = @Schema(implementation = CitiesResponse.class)) }) })
-    ResponseEntity<CitiesResponse> retrieveAllCitiesOperation();
-
     ResponseEntity<CitiesResponse> searchCitiesOperation(String queryName);
 
-    ResponseEntity<WeatherPrediction> getWeatherPredictionOperation(String cityId, String temperatureUnit);
+    ResponseEntity<WeatherPredictionResult> getWeatherPredictionOperation(String cityId, String temperatureUnit);
 
    /* @Tag(name = "search price", description = "GET methods for price operations")
     @Operation(summary = "Search price operation",

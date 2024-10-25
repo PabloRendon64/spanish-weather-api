@@ -1,9 +1,9 @@
 package com.ferchau.spain.weather.domain.gateway;
 
-import com.ferchau.spain.weather.domain.model.WeatherPrediction;
+import com.ferchau.spain.weather.domain.model.WeatherPredictionResult;
 
 public interface IRetrieveWeatherPrediction {
 
-    WeatherPrediction execute(String cityId, String temperatureUnit);
+    WeatherPredictionResult execute(String cityId, String temperatureUnit);
 
 }

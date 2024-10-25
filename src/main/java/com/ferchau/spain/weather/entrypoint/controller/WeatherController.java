@@ -1,9 +1,8 @@
 package com.ferchau.spain.weather.entrypoint.controller;
 
-import com.ferchau.spain.weather.domain.gateway.IRetrieveAllCities;
 import com.ferchau.spain.weather.domain.gateway.IRetrieveWeatherPrediction;
 import com.ferchau.spain.weather.domain.gateway.ISearchCities;
-import com.ferchau.spain.weather.domain.model.WeatherPrediction;
+import com.ferchau.spain.weather.domain.model.WeatherPredictionResult;
 import com.ferchau.spain.weather.entrypoint.controller.contracts.CitiesResponse;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -19,15 +18,8 @@ import org.springframework.web.bind.annotation.RestController;
 @AllArgsConstructor
 public class WeatherController implements IWeatherApi {
 
-    private final IRetrieveAllCities retrieveAllCities;
     private final ISearchCities searchCities;
     private final IRetrieveWeatherPrediction retrieveWeatherPrediction;
-
-    @Override
-    @GetMapping("/retrieve-all-cities")
-    public ResponseEntity<CitiesResponse> retrieveAllCitiesOperation() {
-        return ResponseEntity.ok(new CitiesResponse().setContent(retrieveAllCities.execute()));
-    }
 
     @Override
     @GetMapping("/search-cities")
@@ -37,7 +29,7 @@ public class WeatherController implements IWeatherApi {
 
     @Override
     @GetMapping("/prediction")
-    public ResponseEntity<WeatherPrediction> getWeatherPredictionOperation(
+    public ResponseEntity<WeatherPredictionResult> getWeatherPredictionOperation(
             @RequestParam("city_id") String cityId,
             @RequestParam("temperature_unit") String temperatureUnit) {
         return ResponseEntity.ok(retrieveWeatherPrediction.execute(cityId, temperatureUnit));

@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ferchau.spain.weather.domain.gateway.IRetrieveWeatherPredictionRepository;
 import com.ferchau.spain.weather.domain.model.WeatherPrediction;
 import com.ferchau.spain.weather.infrastructure.rest.aemet.dto.WeatherPredictionResponseDto;
+import com.ferchau.spain.weather.infrastructure.rest.aemet.mapper.IWeatherPredictionMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -18,9 +19,10 @@ public class RetrieveWeatherPredictionRepository implements IRetrieveWeatherPred
 
     private IGetWeatherPredictionRepository getWeatherPredictionRepository;
     private IRetrieveDataRepository retrieveDataRepository;
+    private IWeatherPredictionMapper weatherPredictionMapper;
 
     @Override
-    public WeatherPrediction execute(String cityId) {
+    public List<WeatherPrediction> execute(String cityId) {
         var data = getWeatherPredictionRepository.execute(cityId);
         URI determinedBasePathUri = URI.create(data.getData());
 
@@ -32,7 +34,6 @@ public class RetrieveWeatherPredictionRepository implements IRetrieveWeatherPred
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
-        weatherPredictionDtoList.size();
-        return null;
+        return weatherPredictionMapper.toWeatherPredictions(weatherPredictionDtoList.getFirst().getPrediction().getDay());
     }
 }
