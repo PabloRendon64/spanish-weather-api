@@ -3,6 +3,7 @@ package com.ferchau.spain.weather.infrastructure.rest.aemet;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.ferchau.spain.weather.domain.exception.RepositoryException;
 import com.ferchau.spain.weather.domain.gateway.IRetrieveAllCitiesRepository;
 import com.ferchau.spain.weather.domain.model.City;
 import com.ferchau.spain.weather.infrastructure.rest.aemet.dto.CityDto;
@@ -19,8 +20,9 @@ import java.util.List;
 public class RetrieveAllCitiesRepository implements IRetrieveAllCitiesRepository {
 
     private IGetCitiesRepository getCitiesRepository;
-    private IRetrieveDataRepository retrieveAllCitiesRepository;
-    private ICityMapper iCityMapper;
+    private IRetrieveDataRepository retrieveDataRepository;
+    private ICityMapper cityMapper;
+    private ObjectMapper objectMapper;
 
     @Override
     @Cacheable(cacheNames = "retrieve-all-cities-cache")
@@ -28,14 +30,14 @@ public class RetrieveAllCitiesRepository implements IRetrieveAllCitiesRepository
         var data = getCitiesRepository.execute();
         URI determinedBasePathUri = URI.create(data.getData());
 
-        var response = retrieveAllCitiesRepository.execute(determinedBasePathUri);
-        ObjectMapper mapper = new ObjectMapper();
+        var response = retrieveDataRepository.execute(determinedBasePathUri);
+
         List<CityDto> cityDtoList;
         try {
-            cityDtoList = mapper.readValue(response, new TypeReference<>(){});
+            cityDtoList = objectMapper.readValue(response, new TypeReference<>(){});
         } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
+            throw new RepositoryException(e.getMessage());
         }
-        return iCityMapper.toCities(cityDtoList);
+        return cityMapper.toCities(cityDtoList);
     }
 }

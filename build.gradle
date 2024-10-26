@@ -11,7 +11,7 @@ java {
 	}
 }
 
-group = 'com.inditex.core.platform'
+group = 'com.ferchau.spain.weather'
 version = '0.0.1-SNAPSHOT'
 
 configurations {
@@ -37,7 +37,10 @@ dependencies {
 	// https://mvnrepository.com/artifact/org.mapstruct/mapstruct-processor
 	annotationProcessor  'org.mapstruct:mapstruct-processor:1.5.2.Final'
 
-    // https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-starter-webmvc-ui
+	// https://mvnrepository.com/artifact/com.fasterxml.jackson.datatype/jackson-datatype-jsr310
+	implementation group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jsr310', version: '2.18.0'
+
+	// https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-starter-webmvc-ui
 	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.6.0'
 
 	// https://mvnrepository.com/artifact/org.assertj/assertj-core
@@ -60,8 +63,11 @@ jacocoTestReport {
 	afterEvaluate {
 		classDirectories.setFrom(files(classDirectories.files.collect {
 			fileTree(dir: it, include: [
-					'com/inditex/core/platform/domain/usecase/**',
-					'com/inditex/core/platform/infrastructure/persistence/dao/**',
+					'com/ferchau/spain/weather/domain/usecase/**',
+					'com/ferchau/spain/weather/infrastructure/rest/**',
+					'com/ferchau/spain/weather/entrypoint/controller/**',
+			], excludes: [
+					'**/mapper/**',
 			])
 		}))
 	}
@@ -84,8 +90,11 @@ jacocoTestCoverageVerification {
 			enabled = false
 			element = 'CLASS'
 			includes = [
-					'com.inditex.core.platform.domain.usecase.*',
-					'com.inditex.core.platform.infrastructure.persistence.dao.*'
+					'com.ferchau.spain.weather.domain.usecase.*',
+					'com.ferchau.spain.weather.infrastructure.rest.*'
+			]
+			excludes = [
+					'com.ferchau.spain.weather.infrastructure.rest.aemet.mapper.*',
 			]
 		}
 	}

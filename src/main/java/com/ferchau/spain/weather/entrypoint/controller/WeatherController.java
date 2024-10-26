@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @Slf4j
 @RestController
-@RequestMapping("/weather/")
+@RequestMapping("/api/")
 @AllArgsConstructor
 public class WeatherController implements IWeatherApi {
 
@@ -22,13 +22,13 @@ public class WeatherController implements IWeatherApi {
     private final IRetrieveWeatherPrediction retrieveWeatherPrediction;
 
     @Override
-    @GetMapping("/search-cities")
+    @GetMapping("cities/search")
     public ResponseEntity<CitiesResponse> searchCitiesOperation(@RequestParam("query_name") String queryName) {
         return ResponseEntity.ok(new CitiesResponse().setContent(searchCities.execute(queryName)));
     }
 
     @Override
-    @GetMapping("/prediction")
+    @GetMapping("weather/prediction")
     public ResponseEntity<WeatherPredictionResult> getWeatherPredictionOperation(
             @RequestParam("city_id") String cityId,
             @RequestParam("temperature_unit") String temperatureUnit) {

@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
@@ -18,6 +18,6 @@ public class WeatherPredictionDayDto {
     @JsonProperty("temperatura")
     private List<MeasureDto> temperature;
     @JsonProperty("fecha")
-    private Date date;
+    private LocalDateTime date;
 
 }

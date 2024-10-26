@@ -21,6 +21,7 @@ public class SearchCities implements ISearchCities {
     public List<City> execute(String queryName) {
         return retrieveAllCities.execute().stream()
                 .filter(city -> city.getName().toLowerCase().contains(queryName))
+                .map(city -> city.setId(city.getId().substring(2)))
                 .collect(Collectors.toList());
     }
 }

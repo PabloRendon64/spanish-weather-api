@@ -12,7 +12,7 @@ gradle clean build
 
 ## Ejecutar la app
 
-para ejecutar la app solo se debe iniciar el proyecto en la case principal `src/main/java/com/inditex/core/platform/Application.java`
+para ejecutar la app solo se debe iniciar el proyecto en la case principal `com.ferchau.spain.weather.Application`
 
 ## Documentación
 
@@ -26,7 +26,7 @@ algunos frameworks/mejores practicas usadas:
 
  - spring boot
  - Domain-driven design (DDD) y se implementó arquitectura hexagonal
- - JPA
+ - feign para consumir api rest externas de forma declarativa
  - pruebas unitarias
  - jacoco reports para covertura de código
  - swagger para documentacion del código

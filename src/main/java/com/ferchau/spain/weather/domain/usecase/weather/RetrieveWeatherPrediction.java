@@ -8,7 +8,7 @@ import com.ferchau.spain.weather.domain.model.WeatherPredictionResult;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.time.OffsetDateTime;
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 
@@ -24,7 +24,7 @@ public class RetrieveWeatherPrediction implements IRetrieveWeatherPrediction {
     public WeatherPredictionResult execute(String cityId, String temperatureUnit) {
         var weatherPredictions = retrieveWeatherPredictionRepository.execute(cityId);
 
-        var tomorrow = OffsetDateTime.now().plusDays(NUMBER_DAYS_TO_ADD).toLocalDate();
+        var tomorrow = LocalDate.now().plusDays(NUMBER_DAYS_TO_ADD);
         var nextDayWeatherPrediction = weatherPredictions.stream()
                 .filter(weatherPrediction -> tomorrow.equals(weatherPrediction.getDate().toLocalDate()))
                 .findFirst()
