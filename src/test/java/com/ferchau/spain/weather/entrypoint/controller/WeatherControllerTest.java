@@ -79,10 +79,10 @@ class WeatherControllerTest extends BaseTest {
     void getWeatherPredictionOperationTestWhenResponseBadRequest() throws Exception {
         verifyNoInteractions(retrieveWeatherPrediction);
 
-        var cityId = TEST_CITY_ID;
+        var temperatureUnit = TEST_TEMPERATURE_UNIT_CELSIUS;
 
         this.mockMvc.perform(get("/api/weather/prediction")
-                        .queryParam("city_id", cityId))
+                        .queryParam("temperature_unit", temperatureUnit))
                 .andDo(print())
                 .andExpect(status().isBadRequest());
     }

@@ -31,17 +31,16 @@ public class RetrieveWeatherPredictionTest extends BaseTest {
     }
 
     @Test
-    @DisplayName("given cityId and temperatureUnit in celsius when repository responds ok then return weather prediction result")
+    @DisplayName("given cityId and temperatureUnit null when repository responds ok then return weather prediction result")
     void givenCityIdAndTemperatureUnitInCelsiusWhenRepositoryRespondsOkThenReturnWeatherPredictionResult() {
         //given
         var cityId = TEST_CITY_ID;
-        var temperatureUnit = TEST_TEMPERATURE_UNIT_CELSIUS;
         var expectedResult = mockWeatherPredictionResult();
         //when
         when(retrieveWeatherPredictionRepository.execute(anyString()))
                 .thenReturn(List.of(mockWeatherPrediction()));
         //then
-        var result = retrieveWeatherPrediction.execute(cityId, temperatureUnit);
+        var result = retrieveWeatherPrediction.execute(cityId, null);
         assertThat(result).usingRecursiveComparison().isEqualTo(expectedResult);
     }
 

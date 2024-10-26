@@ -31,7 +31,7 @@ public class WeatherController implements IWeatherApi {
     @GetMapping("weather/prediction")
     public ResponseEntity<WeatherPredictionResult> getWeatherPredictionOperation(
             @RequestParam("city_id") String cityId,
-            @RequestParam("temperature_unit") String temperatureUnit) {
+            @RequestParam(value = "temperature_unit", required = false) String temperatureUnit) {
         return ResponseEntity.ok(retrieveWeatherPrediction.execute(cityId, temperatureUnit));
     }
 

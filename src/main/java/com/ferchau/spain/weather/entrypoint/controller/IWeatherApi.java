@@ -3,36 +3,34 @@ package com.ferchau.spain.weather.entrypoint.controller;
 import com.ferchau.spain.weather.domain.model.WeatherPredictionResult;
 import com.ferchau.spain.weather.entrypoint.controller.contracts.CitiesResponse;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
 
 public interface IWeatherApi {
 
-    @Tag(name = "search price", description = "GET methods for price operations")
-    @Operation(summary = "Search price operation",
-            description = "Search price operation using given query params")
-    @ApiResponses({
-            @ApiResponse(responseCode = "200", content = { @Content(mediaType = "application/json",
-                    schema = @Schema(implementation = CitiesResponse.class)) }) })
-    ResponseEntity<CitiesResponse> searchCitiesOperation(String queryName);
-
-    ResponseEntity<WeatherPredictionResult> getWeatherPredictionOperation(String cityId, String temperatureUnit);
-
-   /* @Tag(name = "search price", description = "GET methods for price operations")
-    @Operation(summary = "Search price operation",
-            description = "Search price operation using given query params")
+    @Operation(summary = "Search cities operation",
+            description = "Search cities operation using given query name param")
     @ApiResponses({
             @ApiResponse(responseCode = "200", content = { @Content(mediaType = "application/json",
                     schema = @Schema(implementation = CitiesResponse.class)) }),
-            @ApiResponse(responseCode = "400", description = "missing required query param", content = @Content),
-            @ApiResponse(responseCode = "404", description = "product not found", content = @Content) })
-    ResponseEntity<CitiesResponse> retrieveAllCitiesOperation(
-            @Parameter(description = "date time for search price", required = true) OffsetDateTime queryDateTime,
-            @Parameter(description = "product identification", required = true) Long productId,
-            @Parameter(description = "brand identification", required = true) Long brandId);*/
+            @ApiResponse(responseCode = "400", description = "missing required query param", content = @Content)
+    })
+    ResponseEntity<CitiesResponse> searchCitiesOperation(
+            @Parameter(description = "query name city", required = true) String queryName);
+
+    @Operation(summary = "get weather prediction operation",
+            description = "get weather prediction using city id and temperature unit")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", content = { @Content(mediaType = "application/json",
+                    schema = @Schema(implementation = WeatherPredictionResult.class)) }),
+            @ApiResponse(responseCode = "400", description = "missing required query param", content = @Content)
+    })
+    ResponseEntity<WeatherPredictionResult> getWeatherPredictionOperation(
+            @Parameter(description = "city id query param", required = true) String cityId,
+            @Parameter(description = "temperature unit query param") String temperatureUnit);
 
 }

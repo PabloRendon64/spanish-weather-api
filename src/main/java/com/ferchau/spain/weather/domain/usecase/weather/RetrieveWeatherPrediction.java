@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 @AllArgsConstructor
@@ -19,9 +20,13 @@ public class RetrieveWeatherPrediction implements IRetrieveWeatherPrediction {
     private IRetrieveWeatherPredictionRepository retrieveWeatherPredictionRepository;
     protected static int NUMBER_DAYS_TO_ADD = 1;
     protected static String TEMPERATURE_UNIT_FAHRENHEIT = "G_FAH";
+    protected static String TEMPERATURE_UNIT_CELSIUS = "G_CEL";
 
     @Override
     public WeatherPredictionResult execute(String cityId, String temperatureUnit) {
+        if (Objects.isNull(temperatureUnit)) {
+            temperatureUnit = TEMPERATURE_UNIT_CELSIUS;
+        }
         var weatherPredictions = retrieveWeatherPredictionRepository.execute(cityId);
 
         var tomorrow = LocalDate.now().plusDays(NUMBER_DAYS_TO_ADD);
