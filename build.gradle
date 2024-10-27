@@ -99,3 +99,12 @@ jacocoTestCoverageVerification {
 		}
 	}
 }
+
+jar {
+	enabled = false
+	manifest {
+		attributes(
+				'Main-Class': 'com.ferchau.spain.weather.Application.class'
+		)
+	}
+}
