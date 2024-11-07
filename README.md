@@ -32,3 +32,16 @@ algunos frameworks/mejores practicas usadas:
  - swagger para documentacion del código
 
 **NOTA:** el reporte de jacoco se puede encotrar en `/build/jacoco/test/html/index.html` depues de compilar el proyecto
+
+## Para levantar el proyecto usando docker
+
+Primero construir la imagen usando el comando
+
+```
+docker build --no-cache -t spanish-weather-api .
+```
+Luego crear el contenedor usando el comando
+
+```
+docker run -p 8080:8080 spanish-weather-api
+```
